@@ -8,14 +8,19 @@ import com.example.springbootexample.entity.User;
 
 @Service
 public class UserServiceImpl implements UserService {
-    
+
     @Autowired
     private UserMapper userMapper;
 
-
     @Override
-    public void register(User user) 
-    {
+    public void register(User user) {
+        // 检查用户名是否已存在
+        User existingUser = userMapper.getUserByUsername(user.getUsername());
+        if (existingUser != null) {
+            throw new RuntimeException("用户名已存在！");
+        }
+
+        // 插入新用户
         userMapper.insertUser(user);
     }
 }

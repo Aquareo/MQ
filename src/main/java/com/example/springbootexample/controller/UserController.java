@@ -14,10 +14,15 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/register")
+    @PostMapping("/register")
     public void register(@RequestBody User user) 
     {
-        userService.register(user);  
+        try{
+            userService.register(user); 
+        }
+        catch (Exception e) {
+            System.out.println("注册失败: " + e.getMessage());
+        }
     }
 
 }
