@@ -24,7 +24,6 @@
 
 #### 1. **接口（`UserService`）**
 接口定义服务的规范，不需要任何注解：
-
 ```java name=UserService.java
 package com.example.springbootexample.service;
 
