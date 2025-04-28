@@ -1,23 +1,14 @@
 package com.example.springbootexample.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter // 自动生成 Getter 方法
+@Setter // 自动生成 Setter 方法
 public class User {
-    private Long id;
-    private String name;
+    private int id; // 主键
+    private String username;
+    private String password;
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    // 无参构造函数（Lombok 默认会生成）
 }

@@ -1,5 +1,9 @@
 package com.example.springbootexample.service;
+import com.example.springbootexample.entity.User;
+
 
 public interface UserService {
-    String getUserById(Long id);
+    
+    void register(User user);
+    
 }
