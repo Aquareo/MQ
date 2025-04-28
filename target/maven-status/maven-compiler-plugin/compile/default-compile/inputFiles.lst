@@ -1,0 +1,7 @@
+/workspaces/MQ/src/main/java/com/example/springbootexample/utils/CommonUtils.java
+/workspaces/MQ/src/main/java/com/example/springbootexample/SpringbootExampleApplication.java
+/workspaces/MQ/src/main/java/com/example/springbootexample/service/UserService.java
+/workspaces/MQ/src/main/java/com/example/springbootexample/service/impl/UserServiceImpl.java
+/workspaces/MQ/src/main/java/com/example/springbootexample/mapper/UserMapper.java
+/workspaces/MQ/src/main/java/com/example/springbootexample/entity/User.java
+/workspaces/MQ/src/main/java/com/example/springbootexample/controller/UserController.java
