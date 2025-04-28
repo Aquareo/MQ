@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户注册</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+        }
+        .register-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+        }
+        .register-container h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        .register-container input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 16px;
+        }
+        .register-container input::placeholder {
+            color: #ddd;
+        }
+        .register-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4caf50;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .register-container button:hover {
+            background-color: #45a049;
+        }
+        .register-container a {
+            display: block;
+            margin-top: 15px;
+            color: #ddd;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .register-container a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h2>用户注册</h2>
+        <form id="registerForm">
+            <input type="text" name="username" placeholder="用户名" required>
+            <input type="password" name="password" placeholder="密码" required>
+            <button type="submit">注册</button>
+        </form>
+        <a href="/login.html">已有账号？立即登录</a>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('registerForm').addEventListener('submit', async function(event) {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                const user = Object.fromEntries(formData.entries());
+
+                try {
+                    const response = await fetch('/user/register', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json', // 确保请求头正确设置
+                        },
+                        body: JSON.stringify(user), // 确保请求体是 JSON 格式
+                    });
+
+                    if (response.ok) {
+                        alert('注册成功！');
+                        window.location.href = '/login.html'; // 跳转到登录页面
+                    } else if (response.status === 415) {
+                        alert('请求格式错误，请检查提交的数据！');
+                    } else {
+                        alert('注册失败，请重试！');
+                    }
+                } catch (error) {
+                    console.error('请求失败:', error);
+                    alert('网络错误，请稍后再试！');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
