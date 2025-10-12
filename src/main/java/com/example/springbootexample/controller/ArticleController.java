@@ -15,9 +15,9 @@ public class ArticleController {
     private ArticleService articleService;
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody Article article) {
-        articleService.createArticle(article);
-        return ResponseEntity.ok("创建成功");
+    public ResponseEntity<Article> create(@RequestBody Article article) {
+        Article created = articleService.createArticle(article);
+        return ResponseEntity.ok(created);
     }
 
     @GetMapping("/{id}")

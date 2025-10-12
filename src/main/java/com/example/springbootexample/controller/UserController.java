@@ -48,9 +48,10 @@ public class UserController {
     */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        System.out.println("进入登录接口，用户名：" + loginRequest.getUsername());  // 加日志
         try {
             LoginResponse response = userService.login(loginRequest.getUsername(), loginRequest.getPassword());
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok(response);// 返回 token + 用户信息
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", e.getMessage()));
         }
