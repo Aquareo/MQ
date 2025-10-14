@@ -2,6 +2,7 @@ package com.example.springbootexample.service.impl;
 
 import com.example.springbootexample.service.UserService;
 import com.example.springbootexample.utils.JwtUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.springbootexample.mapper.UserMapper;
@@ -15,7 +16,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    private static final String SECRET_KEY = "your-very-secure-and-long-secret-key-123456";
+    @Value("${jwt.secret}")
+    private String SECRET_KEY;
 
     @Autowired
     private JwtUtils jwtUtils;
