@@ -30,6 +30,16 @@ public class ArticleController {
         return articleService.getAllArticles();
     }
 
+    @GetMapping("/category/{category}")
+    public List<Article> getArticlesByCategory(@PathVariable String category) {
+        return articleService.getArticlesByCategory(category);
+    }
+
+    @GetMapping("/tag/{tag}")
+    public List<Article> getArticlesByTag(@PathVariable String tag) {
+        return articleService.getArticlesByTag(tag);
+    }
+
     @PutMapping
     public ResponseEntity<?> update(@RequestBody Article article) {
         int result = articleService.updateArticle(article);
@@ -48,6 +58,26 @@ public class ArticleController {
             return ResponseEntity.ok("删除成功");
         } else {
             return ResponseEntity.status(404).body("未找到该文章，删除失败");
+        }
+    }
+
+    @PostMapping("/{id}/like")
+    public ResponseEntity<?> likeArticle(@PathVariable Long id) {
+        int result = articleService.incrementLikes(id);
+        if (result > 0) {
+            return ResponseEntity.ok("点赞成功");
+        } else {
+            return ResponseEntity.status(404).body("未找到该文章，点赞失败");
+        }
+    }
+
+    @PostMapping("/{id}/favorite")
+    public ResponseEntity<?> favoriteArticle(@PathVariable Long id) {
+        int result = articleService.incrementFavorites(id);
+        if (result > 0) {
+            return ResponseEntity.ok("收藏成功");
+        } else {
+            return ResponseEntity.status(404).body("未找到该文章，收藏失败");
         }
     }
 

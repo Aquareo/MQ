@@ -47,5 +47,25 @@ public class ArticleServiceImpl implements  ArticleService{
         return articleMapper.delete(id);
     }
 
+    @Override
+    public List<Article> getArticlesByCategory(String category) {
+        return articleMapper.findByCategory(category);
+    }
+
+    @Override
+    public List<Article> getArticlesByTag(String tag) {
+        return articleMapper.findByTag(tag);
+    }
+
+    @Override
+    public int incrementLikes(Long id) {
+        return articleMapper.incrementLikes(id);
+    }
+
+    @Override
+    public int incrementFavorites(Long id) {
+        return articleMapper.incrementFavorites(id);
+    }
+
 
 }

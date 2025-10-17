@@ -23,4 +23,16 @@ public interface ArticleMapper {
 
     @Delete("DELETE FROM article WHERE id = #{id}")
     int delete(Long id);
+
+    @Select("SELECT * FROM article WHERE category = #{category}")
+    List<Article> findByCategory(String category);
+
+    @Select("SELECT * FROM article WHERE tags LIKE CONCAT('%', #{tag}, '%')")
+    List<Article> findByTag(String tag);
+
+    @Update("UPDATE article SET likes = likes + 1 WHERE id = #{id}")
+    int incrementLikes(Long id);
+
+    @Update("UPDATE article SET favorites = favorites + 1 WHERE id = #{id}")
+    int incrementFavorites(Long id);
 }

@@ -10,4 +10,8 @@ public interface ArticleService {
     List<Article> getAllArticles();
     int updateArticle(Article article);
     int deleteArticle(Long id);
+    List<Article> getArticlesByCategory(String category);
+    List<Article> getArticlesByTag(String tag);
+    int incrementLikes(Long id);
+    int incrementFavorites(Long id);
 }
