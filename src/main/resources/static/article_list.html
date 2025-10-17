@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章列表</title>
+    <style>
+
+        .button-container {
+         display: flex;
+         flex-direction: row; /* 水平排列 */
+         align-items: center; /* 垂直居中对齐 */
+         justify-content: center; /* 水平居中对齐 */
+         gap: 10px; /* 按钮之间的间隔 */
+     }
+
+     body {
+       font-family: 'Arial', sans-serif;
+       margin: 0;
+       padding: 0;
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+       min-height: 100vh;
+       background: linear-gradient(135deg, #6a11cb, #2575fc);
+       color: #fff;
+     }
+     h1 {
+       margin-top: 40px;
+       margin-bottom: 10px;
+     }
+     .article-container {
+       background: rgba(255, 255, 255, 0.1);
+       width: 80%;
+       max-width: 800px;
+       border-radius: 10px;
+       padding: 20px;
+       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+       margin-bottom: 20px;
+     }
+     .article {
+       padding: 10px;
+       border-bottom: 1px solid rgba(255,255,255,0.2);
+     }
+     .article:last-child {
+       border: none;
+     }
+     .title {
+       font-size: 18px;
+       font-weight: bold;
+       cursor: pointer;
+       color: #fff;
+     }
+     .title:hover {
+       text-decoration: underline;
+     }
+     .btn {
+       background-color: rgba(255,255,255,0.2);
+       color: white;
+       border: none;
+       padding: 10px 20px;
+       margin: 10px 0;
+       border-radius: 5px;
+       cursor: pointer;
+     }
+     .btn:hover {
+       background-color: rgba(255,255,255,0.4);
+     }
+    </style>
+</head>
+<body>
+<h1>博客文章列表</h1>
+
+<div class="button-container">
+<button class="btn" onclick="window.location.href='create_article.html'">✏️ 发布新文章</button>
+<button class="btn" onclick="window.location.href='dashboard.html'">✏️ 返回仪表盘</button>
+</div>
+
+
+
+
+<div id="articles" class="article-container">
+    <p>加载中...</p>
+</div>
+
+<script>
+    // 查看文章详情，跳转到文章详情页面
+    function viewArticle(id) {
+        window.location.href = `article_detail.html?id=${id}`;
+    }
+
+    // 加载所有文章
+    async function loadArticles() {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("请先登录");
+            window.location.href = "login.html";
+            return;
+        }
+
+        const res = await fetch("/articles", {
+            headers: { "Authorization": "Bearer " + token }
+        });
+
+        if (!res.ok) {
+            alert("加载文章失败");
+            return;
+        }
+
+        const articles = await res.json();
+        const container = document.getElementById("articles");
+        container.innerHTML = "";
+
+        if (articles.length === 0) {
+            container.innerHTML = "<p>暂无文章</p>";
+            return;
+        }
+
+        // 遍历文章并渲染
+        articles.forEach(article => {
+            const div = document.createElement("div");
+            div.className = "article";
+            div.innerHTML = `
+                <div class="title" style="cursor:pointer;" onclick="viewArticle(${article.id})">
+                    ${article.title}
+                </div>
+                <div style="font-size:14px; opacity:0.8;">${article.author || "匿名"} | ID: ${article.id}</div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    loadArticles();
+</script>
+</body>
+</html>

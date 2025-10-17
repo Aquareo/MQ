@@ -55,7 +55,10 @@
         <div class="time-display" id="timeDisplay">当前时间：--:--:--</div>
         <div class="button-container">
             <button onclick="showMessage()">点我试试</button>
-            <button onclick="logout()">退出登录</button>
+            <!-- ✨ 新增的两个按钮 -->
+            <button class="btn" onclick="window.location.href='article_list.html'">📚 查看文章列表</button>
+            <button class="btn" onclick="window.location.href='create_article.html'">📝 创建新文章</button>
+            <button class="btn" onclick="logout()">🚪 退出登录</button>
         </div>
     </div>
     <script>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发布文章</title>
+    <style>
+        body {
+          font-family: 'Arial', sans-serif;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          background: linear-gradient(135deg, #6a11cb, #2575fc);
+          color: #fff;
+        }
+        .form-container {
+          background: rgba(255, 255, 255, 0.1);
+          padding: 30px;
+          border-radius: 10px;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+          width: 400px;
+          text-align: center;
+        }
+        input, textarea {
+          width: 100%;
+          padding: 10px;
+          margin: 10px 0;
+          border: none;
+          border-radius: 5px;
+        }
+        textarea {
+          height: 120px;
+          resize: none;
+        }
+        button {
+          background-color: rgba(255,255,255,0.2);
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+        button:hover {
+          background-color: rgba(255,255,255,0.4);
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h2>发布新文章</h2>
+    <input type="text" id="title" placeholder="标题" />
+    <textarea id="content" placeholder="内容"></textarea>
+    <button onclick="createArticle()">发布</button>
+    <br><br>
+    <button onclick="window.location.href='article_list.html'">返回文章列表</button>
+</div>
+
+<script>
+    async function createArticle() {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("请先登录");
+        window.location.href = "login.html";
+        return;
+      }
+
+      const title = document.getElementById("title").value.trim();
+      const content = document.getElementById("content").value.trim();
+
+      if (!title || !content) {
+        alert("标题和内容不能为空！");
+        return;
+      }
+
+      const res = await fetch("/articles", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({ title, content })
+      });
+
+      if (res.ok) {
+        alert("发布成功！");
+        window.location.href = "article_list.html";
+      } else {
+        alert("发布失败！");
+      }
+    }
+</script>
+</body>
+</html>
