@@ -99,6 +99,7 @@
                         alert('登录成功！');
                         console.log('Token:', data.token); // 打印 Token
                         localStorage.setItem('token', data.token); // 将 Token 存储到本地
+                        localStorage.setItem("userId", data.user.id);  // 保存用户ID到localStorage
                         window.location.href = '/dashboard.html'; // 跳转到仪表盘页面
                     } else {
                         alert('登录失败，请检查用户名和密码！');

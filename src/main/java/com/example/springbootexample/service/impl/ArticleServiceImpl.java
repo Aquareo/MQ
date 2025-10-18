@@ -6,6 +6,7 @@ import com.example.springbootexample.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -17,7 +18,10 @@ public class ArticleServiceImpl implements  ArticleService{
 
     @Override
     public Article createArticle(Article article)
-    {
+    {   
+        LocalDateTime now = LocalDateTime.now();
+        article.setCreatedAt(now);  // 设置创建时间
+        article.setUpdatedAt(now);  // 设置更新时间
         articleMapper.insert(article);
         return article;
     }
@@ -38,6 +42,8 @@ public class ArticleServiceImpl implements  ArticleService{
     @Override
     public int updateArticle(Article article)
     {
+        // 新增：更新时刷新更新时间
+        article.setUpdatedAt(LocalDateTime.now());
         return articleMapper.update(article);
     }
 

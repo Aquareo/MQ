@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface ArticleMapper {
-    @Insert("INSERT INTO article(title, content, author_id) VALUES(#{title}, #{content}, #{authorId})")
+    @Insert("INSERT INTO article(title, content, author_id, created_at, updated_at) VALUES(#{title}, #{content}, #{authorId}, #{createdAt}, #{updatedAt})")
     //@Options(useGeneratedKeys = true, keyProperty = "id")
         //如果的 ArticleMapper.insert 没有配置 useGeneratedKeys，因此插入后 article.getId() 可能还是 null
     int insert(Article article);

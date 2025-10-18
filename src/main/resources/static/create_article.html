@@ -61,7 +61,8 @@
 <script>
     async function createArticle() {
       const token = localStorage.getItem("token");
-      if (!token) {
+      const userId = localStorage.getItem("userId");  // 从localStorage获取用户ID
+      if (!token || !userId) {
         alert("请先登录");
         window.location.href = "login.html";
         return;
@@ -81,7 +82,7 @@
           "Content-Type": "application/json",
           "Authorization": "Bearer " + token
         },
-        body: JSON.stringify({ title, content })
+        body: JSON.stringify({ title:title, content:content, authorId: userId }) // 传递用户ID作为作者ID
       });
 
       if (res.ok) {
